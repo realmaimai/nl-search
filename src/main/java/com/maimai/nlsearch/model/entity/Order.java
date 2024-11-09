@@ -2,6 +2,8 @@ package com.maimai.nlsearch.model.entity;
 
 import com.maimai.nlsearch.common.enums.OrderStatus;
 import com.maimai.nlsearch.common.enums.ShippingType;
+import com.maimai.nlsearch.converter.OrderStatusConverter;
+import com.maimai.nlsearch.converter.ShippingTypeConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,12 +41,12 @@ public class Order {
     @Column(name = "remaining_balance", nullable = false, precision = 10, scale = 2)
     private BigDecimal remainingBalance;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "shipping_type", nullable = false)
+    @Convert(converter =  ShippingTypeConverter.class)
     private ShippingType shippingType;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
+    @Convert(converter =  OrderStatusConverter.class)
     private OrderStatus status;
 
     @Column(name = "order_date")

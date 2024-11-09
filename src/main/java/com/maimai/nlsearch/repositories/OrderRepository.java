@@ -25,8 +25,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
         """, nativeQuery = true)
     List<Order> searchOrders(
             @Param("remainingBalance") Double remainingBalance,
-            @Param("shippingType") ShippingType shippingType,
-            @Param("status") OrderStatus status,
+            @Param("shippingType") String shippingType,
+            @Param("status") String status,
             @Param("orderDate") LocalDateTime orderDate,
             @Param("paymentDate") LocalDateTime paymentDate,
             @Param("deliverDate") LocalDateTime deliverDate

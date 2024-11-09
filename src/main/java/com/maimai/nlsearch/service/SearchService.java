@@ -30,6 +30,7 @@ public class SearchService {
     }
 
     public SearchResultVO getSearchResult(SearchQueryDTO searchQueryDTO) {
+        // two new list for return VO
         List<CustomerVO> customerVOList = new ArrayList<>();
         List<OrderVO> orderVOList = new ArrayList<>();
 
@@ -39,6 +40,7 @@ public class SearchService {
 
         // run query in queries in repository, loop
 
+
         // customers table only support search for 4 fields: first name, last name, city, note
         List<Customer> customers = customerRepository.searchCustomers(null, "Emma", null, null);
         for (Customer customer: customers) {
@@ -47,7 +49,7 @@ public class SearchService {
             customerVOList.add(customerVO);
         }
 
-        List<Order> orders = orderRepository.searchOrders(0.00, null, null, null, null, null);
+        List<Order> orders = orderRepository.searchOrders(0.00, "express", "delivered", null, null, null);
         for (Order order: orders) {
             OrderVO orderVO = new OrderVO();
             BeanUtils.copyProperties(order, orderVO);
