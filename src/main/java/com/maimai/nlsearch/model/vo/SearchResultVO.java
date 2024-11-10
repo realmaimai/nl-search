@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SearchResultVO {
-    private List<CustomerVO> customerVOList;
-    private List<OrderVO> orderVOList;
+public class SearchResultVO<T> {
+    private List<T> resultList;
 }

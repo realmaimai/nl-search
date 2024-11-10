@@ -17,13 +17,6 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @GetMapping("/test")
-    public ApiResponse<String> getTestResult() {
-        String data = searchService.test();
-        log.info("getting result: " + data);
-        return ApiResponse.success(ResponseMessage.SUCCESS, data);
-    }
-
     @GetMapping("/result")
     public ApiResponse<SearchResultVO> getByQuery(@RequestBody SearchQueryDTO searchQueryDTO) {
         SearchResultVO searchResult = searchService.getSearchResult(searchQueryDTO);

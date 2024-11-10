@@ -7,12 +7,22 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update  # Options: none, update, create, create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect  # Changed from PostgreSQL to MySQL dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  ai:
+    anthropic:
+      api-key: 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
+      chat:
+        options:
+          model: claude-3-haiku-20240307
+          temperature: 0.7
+          max-tokens: 450
+        enabled: true
 
 server:
   port: 8081
