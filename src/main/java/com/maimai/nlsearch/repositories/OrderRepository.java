@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,20 +16,23 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = """
-        SELECT * FROM orders 
-        WHERE (:remainingBalance IS NULL OR remaining_balance = :remainingBalance)
+        SELECT * FROM orders WHERE 
+        (:remainingBalance IS NULL OR remaining_balance = :remainingBalance) 
         AND (:shippingType IS NULL OR shipping_type LIKE CONCAT('%', :shippingType, '%'))
-        AND (:status IS NULL OR status LIKE CONCAT('%', :status, '%'))
-        AND (:orderDate IS NULL OR DATE(order_date) = DATE(:orderDate))
-        AND (:paymentDate IS NULL OR DATE(payment_date) = DATE(:paymentDate))
-        AND (:deliverDate IS NULL OR DATE(deliver_date) = DATE(:deliverDate))
-        """, nativeQuery = true)
+        AND (:orderStatus IS NULL OR order_status LIKE CONCAT('%', :orderStatus, '%'))
+        AND (:orderStartDate IS NULL OR DATE(order_date) BETWEEN DATE(:orderStartDate) AND DATE(:orderEndDate))
+        AND (:paymentStartDate IS NULL OR DATE(payment_date) BETWEEN DATE(:paymentStartDate) AND DATE(:paymentEndDate))
+        AND (:deliverStartDate IS NULL OR DATE(deliver_date) BETWEEN DATE(:deliverStartDate) AND DATE(:deliverEndDate))
+    """, nativeQuery = true)
     List<Order> searchOrders(
             @Param("remainingBalance") Double remainingBalance,
             @Param("shippingType") String shippingType,
-            @Param("status") String status,
-            @Param("orderDate") LocalDateTime orderDate,
-            @Param("paymentDate") LocalDateTime paymentDate,
-            @Param("deliverDate") LocalDateTime deliverDate
+            @Param("orderStatus") String orderStatus,
+            @Param("orderStartDate") LocalDate orderStartDate,
+            @Param("orderEndDate") LocalDate orderEndDate,
+            @Param("paymentStartDate") LocalDate paymentStartDate,
+            @Param("paymentEndDate") LocalDate paymentEndDate,
+            @Param("deliverStartDate") LocalDate deliverStartDate,
+            @Param("deliverEndDate") LocalDate deliverEndDate
     );
 }

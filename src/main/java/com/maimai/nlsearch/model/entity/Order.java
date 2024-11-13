@@ -45,9 +45,9 @@ public class Order {
     @Convert(converter =  ShippingTypeConverter.class)
     private ShippingType shippingType;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "order_status", nullable = false)
     @Convert(converter =  OrderStatusConverter.class)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     @Column(name = "order_date")
     private LocalDateTime orderDate;
