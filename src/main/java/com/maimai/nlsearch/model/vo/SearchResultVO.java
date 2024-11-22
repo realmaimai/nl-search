@@ -9,5 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class SearchResultVO<T> {
+    private String resultType;
     private List<T> resultList;
 }

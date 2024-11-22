@@ -133,10 +133,12 @@ public class SearchService {
         if ("customers".equals(tableType)) {
             SearchResultVO<CustomerVO> customerResultVO = new SearchResultVO<>();
             customerResultVO.setResultList(searchCustomersTable(map));
+            customerResultVO.setResultType("customers");
             return customerResultVO;
         } else {
             SearchResultVO<OrderVO> orderResultVO = new SearchResultVO<>();
             orderResultVO.setResultList(searchOrdersTable(map));
+            orderResultVO.setResultType("orders");
             return orderResultVO;
         }
 
@@ -190,6 +192,7 @@ public class SearchService {
         for (Order order: orders) {
             OrderVO orderVO = new OrderVO();
             BeanUtils.copyProperties(order, orderVO);
+            orderVO.setId(order.getId());
             orderVO.setRemainingBalance(order.getRemainingBalance().doubleValue());
             orderVO.setShippingType(order.getShippingType().getValue());
             orderVO.setOrderStatus(order.getOrderStatus().getValue());

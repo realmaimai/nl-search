@@ -1,5 +1,7 @@
 package com.maimai.nlsearch;
 
+import com.maimai.nlsearch.common.enums.OrderStatus;
+import com.maimai.nlsearch.common.enums.ShippingType;
 import com.maimai.nlsearch.model.dto.SearchQueryDTO;
 import com.maimai.nlsearch.model.entity.Order;
 import com.maimai.nlsearch.model.vo.SearchResultVO;
@@ -57,7 +59,128 @@ public class ServiceTests {
                 null
         );
 
-        log.info("-- Start printing order info --");
+        log.info("-- START LOG --");
         for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+    }
+
+    @Test
+    public void getOrderResultWithRemainingBalance() {
+        List<Order> orders = orderRepository.searchOrders(
+                1699.99,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+    }
+
+    @Test
+    public void getOrderResultWithShippingType() {
+        List<Order> orders = orderRepository.searchOrders(
+                0.0,
+                ShippingType.STANDARD.getValue(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+    }
+
+    @Test
+    public void getOrderResultWithOrderStatus() {
+        List<Order> orders = orderRepository.searchOrders(
+                0.0,
+                null,
+                OrderStatus.DELIVERED.name(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+    }
+    @Test
+    public void getOrderResultWithOrderStartDate() {
+        LocalDate orderStartDate = LocalDate.parse("2024-01-10");
+        List<Order> orders = orderRepository.searchOrders(
+                0.0,
+                null,
+                null,
+                orderStartDate,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+
+    }
+    @Test
+    public void getOrderResultWithPaymentEndDate() {
+        LocalDate paymentEndDate = LocalDate.parse("2024-03-10");
+        List<Order> orders = orderRepository.searchOrders(
+                0.0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                paymentEndDate,
+                null,
+                null
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders) log.info(order.getOrderItemId());
+        log.info("-- END --");
+
+    }
+    @Test
+    public void getOrderResultWithDeliverEndDate() {
+        LocalDate deliverEndDate = LocalDate.parse("2024-03-10");
+        List<Order> orders = orderRepository.searchOrders(
+                0.0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                deliverEndDate
+        );
+
+        log.info("-- START LOG --");
+        for (Order order : orders)  {
+            log.info(order.getOrderItemId());
+            log.info(String.valueOf(order.getDeliverDate()));
+        }
+        log.info("-- END --");
+
     }
 }

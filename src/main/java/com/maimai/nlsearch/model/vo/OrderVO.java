@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class OrderVO {
+    private Long id;
     private Double remainingBalance;
     private String shippingType;
     private String orderStatus;
