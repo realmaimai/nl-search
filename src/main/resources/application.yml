@@ -1,0 +1,62 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:mysql://${nls.db.host}:${nls.db.port}/itsc?useSSL=true&serverTimezone=UTC
+    username: ${nls.db.username}
+    password: ${nls.db.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  ai:
+    anthropic:
+      api-key: ${nls.ai.claude-api}
+      chat:
+        options:
+          model: claude-3-haiku-20240307
+          temperature: 0.7
+          max-tokens: 450
+        enabled: true
+
+server:
+  port: 8081
+
+search:
+  fields:
+    customers:
+      - first_name
+      - last_name
+      - address
+      - city
+      - note
+    orders:
+      - remaining_balance
+      - order_status
+      - shipping_type
+      - order_start_date
+      - payment_start_date
+      - deliver_start_date
+      - order_end_date
+      - payment_end_date
+      - deliver_end_date
+  allowed-values:
+    shipping-type:
+      - express
+      - standard
+      - pickup
+      - overnight
+    order-status:
+      - delivered
+      - processing
+      - shipped
+      - pending
+      - cancelled

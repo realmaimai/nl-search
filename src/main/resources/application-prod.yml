@@ -1,0 +1,9 @@
+nls:
+  db:
+    host: ${DB_HOST}
+    port: ${DB_PORT}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  ai:
+    claude-api: ${CLAUDE_API}
