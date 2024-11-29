@@ -4,6 +4,7 @@ nls:
     port: ${DB_PORT}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    name: ${DB_NAME}
 
   ai:
     claude-api: ${CLAUDE_API}

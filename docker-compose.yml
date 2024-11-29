@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_DATABASE: nl-search
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Wc123123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  java_app:
+    # this "." will try to find the Dockerfile in the current dir
+    build: .
+    container_name: nl-search
+    ports:
+      # The left number (8081) is the port on your computer/host
+      # The right number (8081) is the port inside the Docker container
+      # When you send a request to localhost:8081
+      # Docker acts like a mail forwarding service
+      # it receives your request at port 8081 (left number) on your local machine and
+      # automatically redirects it to port 8081 (right number) inside the container
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      CLAUDE_API: ${CLAUDE_API}
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+
+networks:
+  app_network:
+    driver: bridge

@@ -3,7 +3,7 @@ spring:
     active: local
 
   datasource:
-    url: jdbc:mysql://${nls.db.host}:${nls.db.port}/itsc?useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://${nls.db.host}:${nls.db.port}/${nls.db.name}?useSSL=true&serverTimezone=UTC
     username: ${nls.db.username}
     password: ${nls.db.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
